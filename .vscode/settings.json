@@ -1,0 +1,16 @@
+{
+  "reorder-python-imports.args": [
+    "--application-directories=.:news_breaker",
+  ],
+  "python.formatting.provider": "none",
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": false,
+      "source.organizeImports.reorder-python-imports": true
+    },
+    "editor.defaultFormatter": "ms-python.black-formatter",
+  },
+}

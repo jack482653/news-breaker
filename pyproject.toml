@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "news-breaker"
+version = "0.1.0"
+description = ""
+authors = ["5x <longhorn482653@gmail.com>"]
+readme = "README.md"
+packages = [{include = "news_breaker"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+langchain = "^0.0.158"
+openai = "^0.27.6"
+python-dotenv = "^1.0.0"
+playwright = "^1.33.0"
+lxml = "^4.9.2"
+
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.13.2"
+black = "^23.3.0"
+jupyterlab = "^3.6.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
