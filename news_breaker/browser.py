@@ -12,9 +12,14 @@ DEVICE = {
 
 
 class Browser:
+    def __init__(self, headless=True):
+        self.headless = headless
+        self.playwright = None
+        self.browser = None
+
     async def init(self):
         self.playwright = await async_playwright().start()
-        self.browser = await self.playwright.chromium.launch(headless=True)
+        self.browser = await self.playwright.chromium.launch(headless=self.headless)
         await self.browser.new_context(**DEVICE)
 
     def get_browser(self):
