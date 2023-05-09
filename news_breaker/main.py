@@ -1,8 +1,10 @@
 import asyncio
 import sys
-from news_breaker.article_summarizer_v2 import ArticleSummarizer
+
 from dotenv import load_dotenv
 from langchain.callbacks import get_openai_callback
+
+from news_breaker.article_summarizer import ArticleSummarizer
 
 
 async def main():
