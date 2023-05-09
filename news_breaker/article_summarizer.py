@@ -4,6 +4,7 @@ from langchain.agents.agent_toolkits import PlayWrightBrowserToolkit
 from langchain.chat_models.openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 
+from news_breaker.models.loggable import Loggable
 from news_breaker.utils.browser import Browser
 
 TEMPLATE = """
@@ -13,7 +14,7 @@ TEMPLATE = """
 """
 
 
-class ArticleSummarizer:
+class ArticleSummarizer(metaclass=Loggable):
     def __init__(self, url):
         self.url = url
 
@@ -26,6 +27,7 @@ class ArticleSummarizer:
 
     async def summarize(self) -> str:
         result = ""
+        self.__logger.info(f"[START] Summarize {self.url}")
         async with Browser() as browser:
             toolkit = PlayWrightBrowserToolkit.from_browser(
                 async_browser=browser.get_browser()
@@ -34,17 +36,24 @@ class ArticleSummarizer:
             tools_by_name = {tool.name: tool for tool in tools}
             navigate_tool = tools_by_name["navigate_browser"]
             get_elements_tool = tools_by_name["get_elements"]
-            print("step initialize")
 
+            self.__logger.info(f"Navigating to {self.url}...")
             await navigate_tool.arun({"url": self.url})
-            text = await get_elements_tool.arun({"selector": "article"})
-            print("step get article")
-            print(text)
+            self.__logger.info("Getting article text...")
+            text = await get_elements_tool.arun(
+                {"selector": "article, .fncnews-content, .story"}
+            )
+            self.__logger.info(f"Retrieved article text: {text}")
+
             selected = json.loads(text)
             articles = map(lambda x: x["innerText"], selected)
             articles_str = "\n".join(articles)
 
             chat = ChatOpenAI(temperature=0)
+            prompt = self.get_prompt(articles_str)
+            self.__logger.info(f"Prompt: {prompt}")
             result = chat(self.get_prompt(articles_str)).content
+
+        self.__logger.info(f"[END] Summarize{self.url}")
 
         return result
