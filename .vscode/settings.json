@@ -1,15 +1,16 @@
 {
-  "reorder-python-imports.args": [
-    "--application-directories=.:news_breaker",
+  "isort.args": [
+    "--src=${workspaceFolder}",
+    "--line-length=100",
   ],
+  "isort.check": true,
   "python.formatting.provider": "none",
   "[python]": {
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-      "source.organizeImports": false,
-      "source.organizeImports.reorder-python-imports": true
+      "source.organizeImports": true,
     },
     "editor.defaultFormatter": "ms-python.black-formatter",
   },
