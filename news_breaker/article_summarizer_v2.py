@@ -1,8 +1,9 @@
-from langchain.agents.agent_toolkits import PlayWrightBrowserToolkit
-from news_breaker.browser import Browser
-from langchain.agents import initialize_agent, AgentType
-from langchain.chat_models.openai import ChatOpenAI
 from langchain import PromptTemplate
+from langchain.agents import AgentType, initialize_agent
+from langchain.agents.agent_toolkits import PlayWrightBrowserToolkit
+from langchain.chat_models.openai import ChatOpenAI
+
+from news_breaker.utils.browser import Browser
 
 TEMPLATE = """
 1. 根據連結使用 selector: article || .fncnews-content || .story, attributes: [innerText] 取得 innerText

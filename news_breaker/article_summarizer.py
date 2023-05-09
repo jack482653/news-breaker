@@ -1,22 +1,10 @@
-from langchain.agents.agent_toolkits import PlayWrightBrowserToolkit
-from news_breaker.browser import Browser
 import json
+
+from langchain.agents.agent_toolkits import PlayWrightBrowserToolkit
 from langchain.chat_models.openai import ChatOpenAI
-from langchain.prompts import (
-    ChatPromptTemplate,
-    HumanMessagePromptTemplate,
-)
+from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 
-DEVICE = {
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.5672.53 Safari/537.36",
-    "screen": {"width": 1920, "height": 1080},
-    "viewport": {"width": 1280, "height": 720},
-    "device_scale_factor": 1,
-    "is_mobile": False,
-    "has_touch": False,
-    "default_browser_type": "chromium",
-}
-
+from news_breaker.utils.browser import Browser
 
 TEMPLATE = """
 將以下文章總結成最多100字：
