@@ -8,7 +8,7 @@ from news_breaker.config import get_project_path
 is_configured = False
 
 
-def get_logger(name: str = None):
+def get_logger(name=None):
     global is_configured
 
     if not is_configured:
