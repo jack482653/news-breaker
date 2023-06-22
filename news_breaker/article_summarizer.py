@@ -49,7 +49,7 @@ class ArticleSummarizer(metaclass=Loggable):
             articles = map(lambda x: x["innerText"], selected)
             articles_str = "\n".join(articles)
 
-            chat = ChatOpenAI(temperature=0)
+            chat = ChatOpenAI(model_name="gpt-3.5-turbo-16k-0613", temperature=0)
             prompt = self.get_prompt(articles_str)
             self.__logger.info(f"Prompt: {prompt}")
             result = chat(self.get_prompt(articles_str)).content
