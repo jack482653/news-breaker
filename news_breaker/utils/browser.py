@@ -25,7 +25,21 @@ class Browser:
     def get_browser(self):
         return self.browser
 
+    async def get_or_open_page(self):
+        if not self.browser:
+            raise Exception("Browser not initialized")
+
+        current_context = self.browser.contexts[0]
+
+        if len(current_context.pages) == 0:
+            return await current_context.new_page()
+        else:
+            return current_context.pages[0]
+
     async def close(self):
+        if not self.browser or not self.playwright:
+            raise Exception("Browser not initialized")
+
         await self.browser.close()
         await self.playwright.stop()
 
