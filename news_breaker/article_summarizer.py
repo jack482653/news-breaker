@@ -54,6 +54,6 @@ class ArticleSummarizer(metaclass=Loggable):
             self.__logger.info(f"Prompt: {prompt}")
             result = chat(self.get_prompt(articles_str)).content
 
-        self.__logger.info(f"[END] Summarize{self.url}")
+        self.__logger.info(f"[END] Summarize {self.url}, result: {result}")
 
         return result
